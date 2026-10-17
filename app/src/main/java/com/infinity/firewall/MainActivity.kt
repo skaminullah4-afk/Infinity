@@ -48,88 +48,66 @@ class MainActivity : Activity() {
         window.navigationBarColor = black
         window.decorView.systemUiVisibility = 0
 
-        val content = LinearLayout(this).apply {
-            orientation = LinearLayout.VERTICAL
-            gravity = Gravity.CENTER_HORIZONTAL
-            setPadding(24, 16, 24, 24)
-            setBackgroundColor(black)
-        }
+        
+val content = LinearLayout(this).apply {
+    orientation = LinearLayout.VERTICAL
+    gravity = Gravity.CENTER
+    setPadding(24, 16, 24, 16)
+    setBackgroundColor(black)
+}
 
-        content.addView(
-            makeText("∞", 76f, gold),
-            LinearLayout.LayoutParams(-1, 100)
-        )
+content.addView(
+    makeText("∞", 76f, gold),
+    LinearLayout.LayoutParams(-1, 100)
+)
 
-        content.addView(
-            makeText("INFINITY", 30f, gold),
-            LinearLayout.LayoutParams(-1, 52)
-        )
+content.addView(
+    makeText("INFINITY", 42f, gold),
+    LinearLayout.LayoutParams(-1, 64)
+)
 
-        content.addView(
-            makeText(
-                "YOUR INTERNET. YOUR CONTROL.",
-                12f,
-                ivory
-            ),
-            LinearLayout.LayoutParams(-1, 36)
-        )
+content.addView(
+    makeText("YOUR INTERNET. YOUR CONTROL.", 12f, ivory),
+    LinearLayout.LayoutParams(-1, 36)
+)
 
-        val divider = View(this).apply {
-            setBackgroundColor(gold)
-        }
-        val dividerParams =
-            LinearLayout.LayoutParams(-1, 2)
-        dividerParams.setMargins(12, 16, 12, 16)
-        content.addView(divider, dividerParams)
+val divider = View(this).apply {
+    setBackgroundColor(gold)
+}
+val dividerParams = LinearLayout.LayoutParams(-1, 2)
+dividerParams.setMargins(12, 16, 12, 16)
+content.addView(divider, dividerParams)
 
-        status = makeText(
-            "FIREWALL NOT STARTED",
-            14f,
-            ivory
-        )
-        content.addView(
-            status,
-            LinearLayout.LayoutParams(-1, 48)
-        )
+status = makeText("FIREWALL NOT STARTED", 14f, ivory)
+content.addView(status, LinearLayout.LayoutParams(-1, 48))
 
-        button = makeText(
-            "BLOCK ALL INTERNET",
-            16f,
-            black
-        ).apply {
-            setBackgroundColor(gold)
-            setPadding(12, 8, 12, 8)
-            isClickable = true
-            isFocusable = true
-            setOnClickListener {
-                if (requested) {
-                    stopFirewall()
-                } else {
-                    requestFirewall()
-                }
-            }
-        }
+button = makeText("BLOCK ALL INTERNET", 16f, black).apply {
+    setBackgroundColor(gold)
+    setPadding(12, 8, 12, 8)
+    isClickable = true
+    isFocusable = true
+    setOnClickListener {
+        if (requested) stopFirewall() else requestFirewall()
+    }
+}
 
-        val buttonParams =
-            LinearLayout.LayoutParams(-1, 60)
-        buttonParams.setMargins(0, 16, 0, 12)
-        content.addView(button, buttonParams)
+val buttonParams = LinearLayout.LayoutParams(-1, 64)
+buttonParams.setMargins(0, 16, 0, 12)
+content.addView(button, buttonParams)
 
-        content.addView(
-            makeText("SECURED BY INFINITY", 11f, gold),
-            LinearLayout.LayoutParams(-1, 36)
-        )
+content.addView(
+    makeText("SECURED BY INFINITY", 11f, gold),
+    LinearLayout.LayoutParams(-1, 36)
+)
 
-        val scroll = ScrollView(this).apply {
-            isFillViewport = true
-            setBackgroundColor(black)
-            addView(
-                content,
-                LinearLayout.LayoutParams(-1, -2)
-            )
-        }
+val scroll = ScrollView(this).apply {
+    isFillViewport = true
+    setBackgroundColor(black)
+    addView(content, LinearLayout.LayoutParams(-1, -2))
+}
 
-        setContentView(scroll)
+setContentView(scroll)
+
     }
 
     private fun requestFirewall() {
