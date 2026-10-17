@@ -9,7 +9,9 @@ import android.graphics.Color
 import android.graphics.Typeface
 import android.view.Gravity
 import android.view.View
+import android.view.WindowManager
 import android.widget.LinearLayout
+import android.widget.ScrollView
 import android.widget.TextView
 
 class MainActivity : Activity() {
@@ -44,31 +46,32 @@ class MainActivity : Activity() {
 
         window.statusBarColor = black
         window.navigationBarColor = black
+        window.decorView.systemUiVisibility = 0
 
-        val layout = LinearLayout(this).apply {
+        val content = LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL
-            gravity = Gravity.CENTER
-            setPadding(28, 32, 28, 32)
+            gravity = Gravity.CENTER_HORIZONTAL
+            setPadding(24, 16, 24, 24)
             setBackgroundColor(black)
         }
 
-        layout.addView(
-            makeText("∞", 100f, gold),
-            LinearLayout.LayoutParams(-1, 150)
+        content.addView(
+            makeText("∞", 76f, gold),
+            LinearLayout.LayoutParams(-1, 100)
         )
 
-        layout.addView(
-            makeText("INFINITY", 32f, gold),
-            LinearLayout.LayoutParams(-1, 60)
+        content.addView(
+            makeText("INFINITY", 30f, gold),
+            LinearLayout.LayoutParams(-1, 52)
         )
 
-        layout.addView(
+        content.addView(
             makeText(
                 "YOUR INTERNET. YOUR CONTROL.",
-                13f,
+                12f,
                 ivory
             ),
-            LinearLayout.LayoutParams(-1, 44)
+            LinearLayout.LayoutParams(-1, 36)
         )
 
         val divider = View(this).apply {
@@ -76,26 +79,28 @@ class MainActivity : Activity() {
         }
         val dividerParams =
             LinearLayout.LayoutParams(-1, 2)
-        dividerParams.setMargins(12, 28, 12, 28)
-        layout.addView(divider, dividerParams)
+        dividerParams.setMargins(12, 16, 12, 16)
+        content.addView(divider, dividerParams)
 
         status = makeText(
             "FIREWALL NOT STARTED",
-            16f,
+            14f,
             ivory
         )
-        layout.addView(
+        content.addView(
             status,
-            LinearLayout.LayoutParams(-1, 60)
+            LinearLayout.LayoutParams(-1, 48)
         )
 
         button = makeText(
             "BLOCK ALL INTERNET",
-            17f,
+            16f,
             black
         ).apply {
             setBackgroundColor(gold)
-            setPadding(12, 12, 12, 12)
+            setPadding(12, 8, 12, 8)
+            isClickable = true
+            isFocusable = true
             setOnClickListener {
                 if (requested) {
                     stopFirewall()
@@ -106,16 +111,25 @@ class MainActivity : Activity() {
         }
 
         val buttonParams =
-            LinearLayout.LayoutParams(-1, 64)
-        buttonParams.setMargins(0, 28, 0, 16)
-        layout.addView(button, buttonParams)
+            LinearLayout.LayoutParams(-1, 60)
+        buttonParams.setMargins(0, 16, 0, 12)
+        content.addView(button, buttonParams)
 
-        layout.addView(
-            makeText("SECURED BY INFINITY", 12f, gold),
-            LinearLayout.LayoutParams(-1, 48)
+        content.addView(
+            makeText("SECURED BY INFINITY", 11f, gold),
+            LinearLayout.LayoutParams(-1, 36)
         )
 
-        setContentView(layout)
+        val scroll = ScrollView(this).apply {
+            isFillViewport = true
+            setBackgroundColor(black)
+            addView(
+                content,
+                ScrollView.LayoutParams(-1, -2)
+            )
+        }
+
+        setContentView(scroll)
     }
 
     private fun requestFirewall() {
@@ -166,15 +180,15 @@ class MainActivity : Activity() {
     }
 
     private fun stopFirewall() {
-    val intent = Intent(this, FirewallService::class.java).apply {
-        action = FirewallService.ACTION_STOP
-    }
+        val intent = Intent(this, FirewallService::class.java).apply {
+            action = FirewallService.ACTION_STOP
+        }
 
-    startService(intent)
+        startService(intent)
 
-    requested = false
-    status.text = "STOP REQUESTED"
-    button.text = "BLOCK ALL INTERNET"
+        requested = false
+        status.text = "STOP REQUESTED"
+        button.text = "BLOCK ALL INTERNET"
     }
 
     companion object {
