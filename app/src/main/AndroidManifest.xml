@@ -9,8 +9,8 @@
     <application
         android:allowBackup="false"
         android:label="Infinity"
-        android:icon="@drawable/firewall_background"
-android:roundIcon="@drawable/firewall_background"
+        android:icon="@drawable/icon"
+        android:roundIcon="@drawable/icon"
         android:theme="@android:style/Theme.Material.NoActionBar">
 
         <activity
