@@ -166,15 +166,15 @@ class MainActivity : Activity() {
     }
 
     private fun stopFirewall() {
-        stopService(
-            Intent(this, FirewallService::class.java).apply {
-                action = FirewallService.ACTION_STOP
-            }
-        )
+    val intent = Intent(this, FirewallService::class.java).apply {
+        action = FirewallService.ACTION_STOP
+    }
 
-        requested = false
-        status.text = "FIREWALL STOPPED"
-        button.text = "BLOCK ALL INTERNET"
+    startService(intent)
+
+    requested = false
+    status.text = "STOP REQUESTED"
+    button.text = "BLOCK ALL INTERNET"
     }
 
     companion object {
