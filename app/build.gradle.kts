@@ -24,3 +24,7 @@ android {
         jvmTarget = "17"
     }
 }
+
+dependencies {
+    implementation(files("libs/hev-socks5-tunnel.aar"))
+}
