@@ -53,7 +53,7 @@ val content = LinearLayout(this).apply {
     orientation = LinearLayout.VERTICAL
     gravity = Gravity.CENTER
     setPadding(24, 16, 24, 16)
-    setBackgroundColor(black)
+    setBackgroundResource(R.drawable.firewall_background)
 }
 
 content.addView(
