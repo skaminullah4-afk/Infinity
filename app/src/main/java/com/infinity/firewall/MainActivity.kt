@@ -125,7 +125,7 @@ class MainActivity : Activity() {
             setBackgroundColor(black)
             addView(
                 content,
-                ScrollView.LayoutParams(-1, -2)
+                LinearLayout.LayoutParams(-1, -2)
             )
         }
 
