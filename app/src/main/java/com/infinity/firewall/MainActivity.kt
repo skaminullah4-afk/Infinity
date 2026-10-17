@@ -1,6 +1,8 @@
 package com.infinity.firewall
 
 import android.app.Activity
+import android.widget.FrameLayout
+import android.widget.ImageView
 import android.content.Intent
 import android.net.VpnService
 import android.os.Build
