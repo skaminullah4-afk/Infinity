@@ -181,7 +181,7 @@ class MainActivity : Activity() {
 
         scroll.addView(
             centerLayout,
-            ScrollView.LayoutParams(-1, -1)
+            android.view.ViewGroup.LayoutParams(-1, -1)
         )
 
         val root = FrameLayout(this)
