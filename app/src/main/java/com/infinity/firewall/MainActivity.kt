@@ -50,12 +50,18 @@ class MainActivity : Activity() {
         window.navigationBarColor = black
         window.decorView.systemUiVisibility = 0
 
-        
+
+        val backgroundImage = ImageView(this).apply {
+    setImageResource(R.drawable.firewall_background)
+    scaleType = ImageView.ScaleType.CENTER_CROP
+    contentDescription = null
+}
+
 val content = LinearLayout(this).apply {
     orientation = LinearLayout.VERTICAL
     gravity = Gravity.CENTER
     setPadding(24, 16, 24, 16)
-    setBackgroundResource(R.drawable.firewall_background)
+    setBackgroundColor(Color.TRANSPARENT)
 }
 
 content.addView(
@@ -84,7 +90,10 @@ status = makeText("FIREWALL NOT STARTED", 14f, ivory)
 content.addView(status, LinearLayout.LayoutParams(-1, 48))
 
 button = makeText("BLOCK ALL INTERNET", 16f, black).apply {
-    setBackgroundColor(gold)
+    val shape = android.graphics.drawable.GradientDrawable()
+    shape.setColor(gold)
+    shape.cornerRadius = 14f
+    background = shape
     setPadding(12, 8, 12, 8)
     isClickable = true
     isFocusable = true
@@ -93,7 +102,7 @@ button = makeText("BLOCK ALL INTERNET", 16f, black).apply {
     }
 }
 
-val buttonParams = LinearLayout.LayoutParams(-1, 64)
+val buttonParams = LinearLayout.LayoutParams(-1, 58)
 buttonParams.setMargins(0, 16, 0, 12)
 content.addView(button, buttonParams)
 
@@ -104,11 +113,21 @@ content.addView(
 
 val scroll = ScrollView(this).apply {
     isFillViewport = true
-    setBackgroundColor(black)
+    setBackgroundColor(Color.TRANSPARENT)
     addView(content, LinearLayout.LayoutParams(-1, -2))
 }
 
-setContentView(scroll)
+val root = FrameLayout(this)
+root.addView(
+    backgroundImage,
+    FrameLayout.LayoutParams(-1, -1)
+)
+root.addView(
+    scroll,
+    FrameLayout.LayoutParams(-1, -1)
+)
+
+setContentView(root)
 
     }
 
